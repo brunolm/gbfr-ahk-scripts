@@ -1,71 +1,90 @@
 ; Select the bottom element on the list before running the script
 
+toggle := false
+
+; Mouse middle button
+MButton::
+  toggle := false
+  Tooltip, OFF
+  Sleep 2000
+  Tooltip
+return 
+
 ; ALT + SHIFT + S
 +!s::
-  toggle := true
-  While toggle
-  {
-    if (!CheckWindowActive()) break
+  toggle := !toggle
 
+  Tooltip, % (toggle ? "ON: Middle Mouse Button to stop" : "OFF")
+  Sleep 2000
+  Tooltip
+
+  While toggle {
     Loop, 30
     {
+      if (!CheckWindowActive() || !toggle)
+        break
+
       Click
       Sleep, 20
-      if (!CheckWindowActive()) break
 
       Send, {Up down}
       Sleep, 30
-      if (!CheckWindowActive()) break
 
       Send, {Up up}
       Sleep, 20
-      if (!CheckWindowActive()) break
 
       Sleep 10
     }
+
+    if (!CheckWindowActive() || !toggle)
+      break
+
     Send, {3 down}
     Sleep, 100
-    if (!CheckWindowActive()) break
 
     Send, {3 up}
     Sleep, 400
-    if (!CheckWindowActive()) break
+
+    if (!CheckWindowActive() || !toggle)
+      break
 
     Send, {Up down}
     Sleep, 100
-    if (!CheckWindowActive()) break
 
     Send, {Up up}
     Sleep, 100
-    if (!CheckWindowActive()) break
+
+    if (!CheckWindowActive() || !toggle)
+      break
 
     Click
     Sleep, 400
-    if (!CheckWindowActive()) break
+
+    if (!CheckWindowActive() || !toggle)
+      break
 
     Click
     Sleep, 100
-    if (!CheckWindowActive()) break
+
+    if (!CheckWindowActive() || !toggle)
+      break
 
     Send, {Down down}
     Sleep, 100
-    if (!CheckWindowActive()) break
 
     Send, {Down up}
     Click
     Sleep, 200
-    if (!CheckWindowActive()) break
+
+    if (!CheckWindowActive() || !toggle)
+      break
 
     Click
     Sleep, 200
-    if (!CheckWindowActive()) break
-    }
+  }
+
 return
 
 CheckWindowActive() {
-  if (!WinActive("Granblue Fantasy: Relink")) {
-    toggle := false
-    return false
-  }
-return true
+return WinActive("Granblue Fantasy: Relink")
 }
