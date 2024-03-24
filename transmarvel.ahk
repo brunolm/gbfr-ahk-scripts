@@ -7,7 +7,14 @@
 exe_path := "C:\System\Capture2Text\Capture2Text.exe"
 
 ; what you want to search for
-search_text := "(Stamina|Vision|Critical R)"
+search_text := "(Stamina|Vision|Critical)"
+
+; Advanced example: Critical Hit DMG with Improved Guard
+; sometimes spaces are not detect, use \s* instead of spaces
+; use [\S\s]+ between the trait names
+; search_text := "(Critical\s*Hit\s*D[\S\s]+Improved\s*G)"
+; Vision with Stamina
+; search_text := "(Vision[\S\s]+Stamina)"
 
 ; how many times to check (MAX)
 loop_count := 10 
