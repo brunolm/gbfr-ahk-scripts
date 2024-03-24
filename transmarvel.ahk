@@ -7,7 +7,7 @@
 exe_path := "C:\System\Capture2Text\Capture2Text.exe"
 
 ; what you want to search for
-search_text := "(Stamina|Vision|Critical)"
+search_text := "(Stamina)"
 
 ; Advanced example: Critical Hit DMG with Improved Guard
 ; sometimes spaces are not detect, use \s* instead of spaces
@@ -23,8 +23,22 @@ loop_count := 10
 ; DO NOT EDIT BELOW THIS LINE
 ; ########################################################
 
+toggle := false
+
+; Mouse middle button
+MButton::
+  toggle := false
+  Tooltip, OFF
+  Sleep 2000
+  Tooltip
+return 
+
 ; ALT + SHIFT + T
 +!t::
+  toggle := true
+  Tooltip, % (toggle ? "ON: Middle Mouse Button to stop" : "OFF")
+  Sleep 2000
+  Tooltip
 
   ; x_start := 1435
   ; y_start := 1137
@@ -44,6 +58,10 @@ loop_count := 10
   {
     if (!WinActive("Granblue Fantasy: Relink"))
     {
+      break
+    }
+
+    if (!toggle) {
       break
     }
 
